@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>John Doe - Personal Portfolio</title>
+  <title>Nimesha Shehan - Personal Portfolio</title>
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- Font Awesome for icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
   <style>
-    /* Custom CSS for animations and overrides */
+    /* Custom CSS for animations and styles */
     .profile-pic {
       transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
@@ -26,123 +26,193 @@
       opacity: 1;
       transform: translateY(0);
     }
-    .project-card {
+    .project-card, .skill-card {
       transition: transform 0.3s ease, box-shadow 0.3s ease;
+      -webkit-backdrop-filter: blur(10px); /* Added for Safari support */
+      backdrop-filter: blur(10px);
+      background: rgba(255, 255, 255, 0.1);
     }
-    .project-card:hover {
+    .project-card:hover, .skill-card:hover {
       transform: translateY(-5px);
       box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
     }
-    .dark .project-card {
-      box-shadow: 0 10px 20px rgba(255, 255, 255, 0.1);
+    .progress-bar {
+      height: 10px;
+      border-radius: 5px;
+      background: linear-gradient(to right, #4f46e5, #7c3aed);
+      transition: width 1s ease-in-out;
+    }
+    .glassmorphism {
+      background: rgba(255, 255, 255, 0.15);
+      -webkit-backdrop-filter: blur(15px); /* Added for Safari support */
+      backdrop-filter: blur(15px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
     }
   </style>
 </head>
-<body class="bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors duration-300">
+<body class="bg-gradient-to-b from-gray-100 to-gray-300 text-gray-900">
   <!-- Header -->
-  <header class="bg-gradient-to-r from-blue-600 to-indigo-600 text-white py-16 text-center">
-    <img src="assets/my.png" alt="My Photo" class="profile-pic w-32 h-32 rounded-full mx-auto mb-4 object-cover border-4 border-white" />
-    <h1 class="text-4xl font-bold">Nimesha shehan</h1>
-    <p class="mt-2 text-lg">Web Developer | Student | Tech Enthusiast</p>
-    <button id="theme-toggle" class="mt-4 px-4 py-2 bg-gray-800 dark:bg-gray-200 text-white dark:text-gray-800 rounded-full hover:bg-gray-700 dark:hover:bg-gray-300 transition">
-      <i class="fas fa-moon"></i> Toggle Theme
-    </button>
+  <header class="bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 text-white py-16 text-center">
+    <img src="assets/my.png" alt="Nimesha Shehan" class="profile-pic w-36 h-36 rounded-full mx-auto mb-4 object-cover border-4 border-white" />
+    <h1 class="text-5xl font-extrabold">Nimesha Shehan</h1>
+    <p class="mt-2 text-xl font-medium">Full-Stack Developer | IT Undergraduate | Tech Innovator</p>
   </header>
 
   <!-- Main Content -->
-  <main class="max-w-5xl mx-auto px-4 py-12">
+  <main class="max-w-6xl mx-auto px-4 py-12">
     <!-- About Section -->
     <section class="about mb-16 fade-in">
-      <h2 class="text-3xl font-semibold mb-6 text-center">About Me</h2>
-      <p class="text-lg leading-relaxed text-center max-w-3xl mx-auto">
-        As an IT undergraduate student, I have developed expertise in various
-programming languages, including Java, PHP, JavaScript, and Python. I
-possess a solid understanding of both front-end and back-end
-development, allowing me to craft dynamic and responsive websites.
-Additionally, I focus on creating intuitive and user-friendly interfaces
-through UI design, enhancing the overall user experience. My
-commitment to continuous learning ensures I stay updated with the
-latest industry trends and technologies..
-      </p>
+      <h2 class="text-4xl font-bold mb-6 text-center bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-pink-600">About Me</h2>
+      <div class="glassmorphism p-6 rounded-lg text-center max-w-3xl mx-auto">
+        <p class="text-lg leading-relaxed">
+          A driven IT undergraduate at Sri Lanka Institute of Information Technology, I specialize in full-stack development with expertise in React, Spring Boot, and MERN stack. My passion for creating user-friendly, responsive web applications is fueled by a growth mindset and a commitment to staying ahead of industry trends. With a strong foundation in both front-end and back-end technologies, I deliver innovative solutions that enhance user experiences.
+        </p>
+      </div>
+    </section>
+
+    <!-- Education Section -->
+    <section class="education mb-16 fade-in">
+      <h2 class="text-4xl font-bold mb-6 text-center bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-pink-600">Education</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="skill-card p-6 rounded-lg glassmorphism">
+          <h3 class="text-xl font-semibold mb-2">BSc (Hons) Information Technology</h3>
+          <p class="text-gray-600">Sri Lanka Institute of Information Technology (2022 - Present)</p>
+        </div>
+        <div class="skill-card p-6 rounded-lg glassmorphism">
+          <h3 class="text-xl font-semibold mb-2">GCE Advanced Level (2021)</h3>
+          <p class="text-gray-600">Rajapksha Central College, Weeraketiya<br>Subjects: Science for Technology, Engineering Technology, ICT</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Technical Skills Section -->
+    <section class="skills mb-16 fade-in">
+      <h2 class="text-4xl font-bold mb-6 text-center bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-pink-600">Technical Skills</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="skill-card p-6 rounded-lg glassmorphism">
+          <h3 class="text-lg font-semibold mb-2">HTML & CSS</h3>
+          <div class="bg-gray-200 rounded-full h-2.5">
+            <div class="progress-bar w-[90%]"></div>
+          </div>
+        </div>
+        <div class="skill-card p-6 rounded-lg glassmorphism">
+          <h3 class="text-lg font-semibold mb-2">JavaScript & React</h3>
+          <div class="bg-gray-200 rounded-full h-2.5">
+            <div class="progress-bar w-[85%]"></div>
+          </div>
+        </div>
+        <div class="skill-card p-6 rounded-lg glassmorphism">
+          <h3 class="text-lg font-semibold mb-2">Spring Boot</h3>
+          <div class="bg-gray-200 rounded-full h-2.5">
+            <div class="progress-bar w-[80%]"></div>
+          </div>
+        </div>
+        <div class="skill-card p-6 rounded-lg glassmorphism">
+          <h3 class="text-lg font-semibold mb-2">MySQL & MongoDB</h3>
+          <div class="bg-gray-200 rounded-full h-2.5">
+            <div class="progress-bar w-[75%]"></div>
+          </div>
+        </div>
+        <div class="skill-card p-6 rounded-lg glassmorphism">
+          <h3 class="text-lg font-semibold mb-2">Bootstrap</h3>
+          <div class="bg-gray-200 rounded-full h-2.5">
+            <div class="progress-bar w-[70%]"></div>
+          </div>
+        </div>
+      </div>
     </section>
 
     <!-- Projects Section -->
     <section class="projects mb-16 fade-in">
-      <h2 class="text-3xl font-semibold mb-6 text-center">Projects</h2>
+      <h2 class="text-4xl font-bold mb-6 text-center bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-pink-600">Projects</h2>
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <div class="project-card bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg">
-          <h3 class="text-xl font-bold mb-2">Hotel Management System</h3>
-          <p class="text-gray-600 dark:text-gray-300">A web application built with HTML and PHP to manage hotel bookings and services efficiently.</p>
-          <span class="inline-block mt-4 px-4 py-2 bg-blue-600 text-white rounded-full text-sm">HTML, PHP</span>
+        <div class="project-card p-6 rounded-lg glassmorphism">
+          <h3 class="text-xl font-bold mb-2">Vehicle Service</h3>
+          <p class="text-gray-600 mb-4">A MERN stack platform for scheduling and tracking vehicle maintenance with user authentication.</p>
+          <div class="flex gap-2">
+            <span class="px-4 py-1 bg-indigo-600 text-white rounded-full text-sm">MERN Stack</span>
+            <a href="https://github.com/NimeshaShehan" target="_blank" rel="noopener noreferrer" class="px-4 py-1 bg-gray-600 text-white rounded-full text-sm hover:bg-gray-500"><i class="fab fa-github"></i> GitHub</a>
+          </div>
         </div>
-        <div class="project-card bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg">
-          <h3 class="text-xl font-bold mb-2">Vehicle Service App</h3>
-          <p class="text-gray-600 dark:text-gray-300">A full-stack MERN application for scheduling and tracking vehicle maintenance services.</p>
-          <span class="inline-block mt-4 px-4 py-2 bg-blue-600 text-white rounded-full text-sm">MERN Stack</span>
+        <div class="project-card p-6 rounded-lg glassmorphism">
+          <h3 class="text-xl font-bold mb-2">Car Sale</h3>
+          <p class="text-gray-600 mb-4">A React-based car sales website with browsing, filtering, and user authentication features.</p>
+          <div class="flex gap-2">
+            <span class="px-4 py-1 bg-indigo-600 text-white rounded-full text-sm">React</span>
+            <a href="https://github.com/NimeshaShehan" target="_blank" rel="noopener noreferrer" class="px-4 py-1 bg-gray-600 text-white rounded-full text-sm hover:bg-gray-500"><i class="fab fa-github"></i> GitHub</a>
+          </div>
         </div>
-        <div class="project-card bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg">
-          <h3 class="text-xl font-bold mb-2">Real Estate System</h3>
-          <p class="text-gray-600 dark:text-gray-300">A robust platform for property listings using Spring Boot and React.</p>
-          <span class="inline-block mt-4 px-4 py-2 bg-blue-600 text-white rounded-full text-sm">Spring Boot, React</span>
+        <div class="project-card p-6 rounded-lg glassmorphism">
+          <h3 class="text-xl font-bold mb-2">Waste Management</h3>
+          <p class="text-gray-600 mb-4">A React platform for managing waste collection and recycling with real-time monitoring.</p>
+          <div class="flex gap-2">
+            <span class="px-4 py-1 bg-indigo-600 text-white rounded-full text-sm">React</span>
+            <a href="https://github.com/NimeshaShehan" target="_blank" rel="noopener noreferrer" class="px-4 py-1 bg-gray-600 text-white rounded-full text-sm hover:bg-gray-500"><i class="fab fa-github"></i> GitHub</a>
+          </div>
         </div>
+        <div class="project-card p-6 rounded-lg glassmorphism">
+          <h3 class="text-xl font-bold mb-2">Portfolio</h3>
+          <p class="text-gray-600 mb-4">A responsive portfolio built with HTML5, CSS3, and JavaScript showcasing frontend skills.</p>
+          <div class="flex gap-2">
+            <span class="px-4 py-1 bg-indigo-600 text-white rounded-full text-sm">HTML, CSS, JS</span>
+            <a href="https://github.com/NimeshaShehan" target="_blank" rel="noopener noreferrer" class="px-4 py-1 bg-gray-600 text-white rounded-full text-sm hover:bg-gray-500"><i class="fab fa-github"></i> GitHub</a>
+          </div>
+        </div>
+        <div class="project-card p-6 rounded-lg glassmorphism">
+          <h3 class="text-xl font-bold mb-2">To-Do App</h3>
+          <p class="text-gray-600 mb-4">A user-friendly mobile app built with Android Studio for task management.</p>
+          <div class="flex gap-2">
+            <span class="px-4 py-1 bg-indigo-600 text-white rounded-full text-sm">Android Studio</span>
+            <a href="https://github.com/NimeshaShehan" target="_blank" rel="noopener noreferrer" class="px-4 py-1 bg-gray-600 text-white rounded-full text-sm hover:bg-gray-500"><i class="fab fa-github"></i> GitHub</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Extracurricular Activities Section -->
+    <section class="extracurricular mb-16 fade-in">
+      <h2 class="text-4xl font-bold mb-6 text-center bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-pink-600">Extracurricular Activities</h2>
+      <div class="glassmorphism p-6 rounded-lg text-center max-w-3xl mx-auto">
+        <p class="text-lg leading-relaxed">Active member of the Leo Club of SLIIT, contributing to community service and leadership initiatives.</p>
       </div>
     </section>
 
     <!-- Contact Section -->
     <section class="contact mb-16 fade-in">
-      <h2 class="text-3xl font-semibold mb-6 text-center">Contact</h2>
-      <form id="contact-form" class="max-w-lg mx-auto">
+      <h2 class="text-4xl font-bold mb-6 text-center bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-pink-600">Contact</h2>
+      <form id="contact-form" class="max-w-lg mx-auto glassmorphism p-6 rounded-lg">
         <div class="mb-4">
           <label for="name" class="block text-lg font-medium mb-2">Name</label>
-          <input type="text" id="name" name="name" class="w-full px-4 py-2 border rounded-lg dark:bg-gray-800 dark:border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-600" required />
+          <input type="text" id="name" name="name" class="w-full px-4 py-2 border rounded-lg bg-gray-100 border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-600" required />
         </div>
         <div class="mb-4">
           <label for="email" class="block text-lg font-medium mb-2">Email</label>
-          <input type="email" id="email" name="email" class="w-full px-4 py-2 border rounded-lg dark:bg-gray-800 dark:border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-600" required />
+          <input type="email" id="email" name="email" class="w-full px-4 py-2 border rounded-lg bg-gray-100 border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-600" required />
         </div>
         <div class="mb-4">
           <label for="message" class="block text-lg font-medium mb-2">Message</label>
-          <textarea id="message" name="message" rows="5" class="w-full px-4 py-2 border rounded-lg dark:bg-gray-800 dark:border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-600" required></textarea>
+          <textarea id="message" name="message" rows="5" class="w-full px-4 py-2 border rounded-lg bg-gray-100 border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-600" required></textarea>
         </div>
-        <button type="submit" class="w-full px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">Send Message</button>
+        <button type="submit" class="w-full px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition">Send Message</button>
       </form>
-      <p class="mt-4 text-center text-gray-600 dark:text-gray-300">
-        Or reach me at: <a href="mailto:nimeshashehan412@gmail.com" class="text-blue-600 hover:underline">john.doe@example.com</a>
+      <p class="mt-4 text-center text-gray-600">
+        Reach me at: <a href="mailto:nimeshashehan412@gmail.com" class="text-indigo-600 hover:underline">nimeshashehan412@gmail.com</a> | <a href="tel:+94705105245" class="text-indigo-600 hover:underline">+94 70 510 5245</a>
       </p>
     </section>
   </main>
 
   <!-- Footer -->
-  <footer class="bg-gray-800 text-white py-6 text-center">
-    <p>© 2025 John Doe. All rights reserved.</p>
+  <footer class="bg-gradient-to-r from-indigo-600 to-pink-600 text-white py-6 text-center">
+    <p>© 2025 Nimesha Shehan. All rights reserved.</p>
     <div class="mt-2">
-      <a href="https://github.com/NimeshaShehan" class="text-gray-300 hover:text-white mx-2"><i class="fab fa-github"></i></a>
-      <a href="https://www.linkedin.com/in/nimesha-shehan-187a31333/" class="text-gray-300 hover:text-white mx-2"><i class="fab fa-linkedin"></i></a>
-      <a href="https://twitter.com/nimesha" class="text-gray-300 hover:text-white mx-2"><i class="fab fa-twitter"></i></a>
+      <a href="https://github.com/NimeshaShehan" target="_blank" rel="noopener noreferrer" class="text-white hover:text-gray-200 mx-2" title="GitHub Profile"><i class="fab fa-github"></i><span class="sr-only">GitHub</span></a>
+      <a href="https://www.linkedin.com/in/nimesha-shehan-187a31333/" target="_blank" rel="noopener noreferrer" class="text-white hover:text-gray-200 mx-2" title="LinkedIn Profile"><i class="fab fa-linkedin"></i><span class="sr-only">LinkedIn</span></a>
+      <a href="https://twitter.com/nimesha" target="_blank" rel="noopener noreferrer" class="text-white hover:text-gray-200 mx-2" title="Twitter Profile"><i class="fab fa-twitter"></i><span class="sr-only">Twitter</span></a>
     </div>
   </footer>
 
   <!-- JavaScript -->
   <script>
-    // Theme Toggle
-    const themeToggle = document.getElementById('theme-toggle');
-    const html = document.documentElement;
-
-    themeToggle.addEventListener('click', () => {
-      html.classList.toggle('dark');
-      const isDark = html.classList.contains('dark');
-      themeToggle.innerHTML = isDark
-        ? '<i class="fas fa-sun"></i> Toggle Theme'
-        : '<i class="fas fa-moon"></i> Toggle Theme';
-      localStorage.setItem('theme', isDark ? 'dark' : 'light');
-    });
-
-    // Load saved theme
-    if (localStorage.getItem('theme') === 'dark') {
-      html.classList.add('dark');
-      themeToggle.innerHTML = '<i class="fas fa-sun"></i> Toggle Theme';
-    }
-
     // Fade-in animations on scroll
     const fadeElements = document.querySelectorAll('.fade-in');
     const observer = new IntersectionObserver(
