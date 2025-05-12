@@ -8,8 +8,30 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- Font Awesome for icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+  <!-- Animate.css -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
   <style>
     /* Custom CSS for animations and styles */
+    :root {
+      --primary: #4f46e5;
+      --secondary: #7c3aed;
+      --dark: #1e293b;
+      --light: #f8fafc;
+    }
+    
+    .dark {
+      --primary: #818cf8;
+      --secondary: #a78bfa;
+      --dark: #f8fafc;
+      --light: #1e293b;
+    }
+    
+    body {
+      transition: background-color 0.5s ease, color 0.3s ease;
+      color: var(--dark);
+      background-color: var(--light);
+    }
+    
     .profile-pic {
       transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
@@ -28,7 +50,7 @@
     }
     .project-card, .skill-card {
       transition: transform 0.3s ease, box-shadow 0.3s ease;
-      -webkit-backdrop-filter: blur(10px); /* Added for Safari support */
+      -webkit-backdrop-filter: blur(10px);
       backdrop-filter: blur(10px);
       background: rgba(255, 255, 255, 0.1);
     }
@@ -39,180 +61,702 @@
     .progress-bar {
       height: 10px;
       border-radius: 5px;
-      background: linear-gradient(to right, #4f46e5, #7c3aed);
+      background: linear-gradient(to right, var(--primary), var(--secondary));
       transition: width 1s ease-in-out;
     }
     .glassmorphism {
       background: rgba(255, 255, 255, 0.15);
-      -webkit-backdrop-filter: blur(15px); /* Added for Safari support */
+      -webkit-backdrop-filter: blur(15px);
       backdrop-filter: blur(15px);
       border: 1px solid rgba(255, 255, 255, 0.2);
     }
+    .dark .glassmorphism {
+      background: rgba(30, 41, 59, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    /* Particles container */
+    #particles-js {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      z-index: -1;
+      pointer-events: none;
+    }
+    
+    /* Dark mode toggle */
+    .toggle-checkbox:checked {
+      right: 0;
+      border-color: var(--primary);
+    }
+    .toggle-checkbox:checked + .toggle-label {
+      background-color: var(--primary);
+    }
+    
+    /* Floating animation */
+    @keyframes float {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+      100% { transform: translateY(0px); }
+    }
+    .floating {
+      animation: float 3s ease-in-out infinite;
+    }
+    
+    /* Custom scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: var(--light);
+    }
+    ::-webkit-scrollbar-thumb {
+      background: var(--primary);
+      border-radius: 4px;
+    }
+    .dark ::-webkit-scrollbar-track {
+      background: #0f172a;
+    }
   </style>
 </head>
-<body class="bg-gradient-to-b from-gray-100 to-gray-300 text-gray-900">
+<body class="relative">
+  <!-- Particles Background -->
+  <div id="particles-js"></div>
+  
+  <!-- Dark Mode Toggle -->
+  <div class="fixed top-4 right-4 z-50">
+    <div class="relative inline-block w-12 mr-2 align-middle select-none">
+      <label type="checkbox" id="toggle" class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer"/>
+      <label for="toggle" class="toggle-label block overflow-hidden h-6 rounded-full bg-gray-300 cursor-pointer"></label>
+    </div>
+    <label for="toggle" class="text-xs font-medium">
+      <i class="fas fa-moon dark:text-yellow-300 text-gray-600"></i>
+    </label>
+  </div>
+  
+  <!-- Back to Top Button -->
+  <button id="back-to-top" class="fixed bottom-8 right-8 p-3 bg-indigo-600 text-white rounded-full shadow-lg opacity-0 invisible transition-all duration-300 hover:bg-indigo-700" title="Back to Top">
+    <i class="fas fa-arrow-up"></i>
+  </button>
+
   <!-- Header -->
-  <header class="bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 text-white py-16 text-center">
-    <img src="assets/my.png" alt="Nimesha Shehan" class="profile-pic w-36 h-36 rounded-full mx-auto mb-4 object-cover border-4 border-white" />
-    <h1 class="text-5xl font-extrabold">Nimesha Shehan</h1>
-    <p class="mt-2 text-xl font-medium">Full-Stack Developer | IT Undergraduate | Tech Innovator</p>
+  <header class="bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 text-white py-16 text-center relative overflow-hidden">
+    <div class="absolute inset-0 bg-black opacity-10"></div>
+    <div class="relative z-10">
+      <img src="assets/my.png" alt="Nimesha Shehan" class="profile-pic w-36 h-36 rounded-full mx-auto mb-4 object-cover border-4 border-white floating" />
+      <h1 class="text-5xl font-extrabold animate__animated animate__fadeInDown">Nimesha Shehan</h1>
+      <p class="mt-2 text-xl font-medium animate__animated animate__fadeInUp">Full-Stack Developer | IT Undergraduate | Tech Innovator</p>
+      
+      <!-- Social Badges -->
+      <div class="flex justify-center mt-6 space-x-4 animate__animated animate__fadeIn animate__delay-1s">
+        <a href="https://github.com/NimeshaShehan" target="_blank" rel="noopener" class="bg-white/10 hover:bg-white/20 px-4 py-2 rounded-full flex items-center transition" title="GitHub Profile">
+          <i class="fab fa-github mr-2"></i> GitHub
+        </a>
+        <a href="https://www.linkedin.com/in/nimesha-shehan-187a31333/" target="_blank" rel="noopener" class="bg-white/10 hover:bg-white/20 px-4 py-2 rounded-full flex items-center transition" title="LinkedIn Profile">
+          <i class="fab fa-linkedin mr-2"></i> LinkedIn
+        </a>
+        <a href="https://twitter.com/nimesha" target="_blank" rel="noopener" class="bg-white/10 hover:bg-white/20 px-4 py-2 rounded-full flex items-center transition" title="Twitter Profile">
+          <i class="fab fa-twitter mr-2"></i> Twitter
+        </a>
+      </div>
+    </div>
   </header>
 
   <!-- Main Content -->
   <main class="max-w-6xl mx-auto px-4 py-12">
     <!-- About Section -->
-    <section class="about mb-16 fade-in">
+    <section class="about mb-16 fade-in" id="about">
       <h2 class="text-4xl font-bold mb-6 text-center bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-pink-600">About Me</h2>
       <div class="glassmorphism p-6 rounded-lg text-center max-w-3xl mx-auto">
         <p class="text-lg leading-relaxed">
           A driven IT undergraduate at Sri Lanka Institute of Information Technology, I specialize in full-stack development with expertise in React, Spring Boot, and MERN stack. My passion for creating user-friendly, responsive web applications is fueled by a growth mindset and a commitment to staying ahead of industry trends. With a strong foundation in both front-end and back-end technologies, I deliver innovative solutions that enhance user experiences.
         </p>
+        <div class="mt-6 flex flex-wrap justify-center gap-4">
+          <div class="px-4 py-2 bg-indigo-600/10 text-indigo-600 dark:text-indigo-300 rounded-full flex items-center">
+            <i class="fas fa-code mr-2"></i> Full-Stack Development
+          </div>
+          <div class="px-4 py-2 bg-indigo-600/10 text-indigo-600 dark:text-indigo-300 rounded-full flex items-center">
+            <i class="fas fa-mobile-alt mr-2"></i> Responsive Design
+          </div>
+          <div class="px-4 py-2 bg-indigo-600/10 text-indigo-600 dark:text-indigo-300 rounded-full flex items-center">
+            <i class="fas fa-server mr-2"></i> Backend Architecture
+          </div>
+        </div>
       </div>
     </section>
 
     <!-- Education Section -->
-    <section class="education mb-16 fade-in">
+    <section class="education mb-16 fade-in" id="education">
       <h2 class="text-4xl font-bold mb-6 text-center bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-pink-600">Education</h2>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div class="skill-card p-6 rounded-lg glassmorphism">
-          <h3 class="text-xl font-semibold mb-2">BSc (Hons) Information Technology</h3>
-          <p class="text-gray-600">Sri Lanka Institute of Information Technology (2022 - Present)</p>
+        <div class="skill-card p-6 rounded-lg glassmorphism hover:border-indigo-400 transition">
+          <div class="flex items-start">
+            <div class="bg-indigo-100 dark:bg-indigo-900/50 p-3 rounded-full mr-4">
+              <i class="fas fa-graduation-cap text-indigo-600 dark:text-indigo-300 text-xl"></i>
+            </div>
+            <div>
+              <h3 class="text-xl font-semibold mb-2">BSc (Hons) Information Technology</h3>
+              <p class="text-gray-600 dark:text-gray-300">Sri Lanka Institute of Information Technology (2022 - Present)</p>
+              <div class="mt-3 flex flex-wrap gap-2">
+                <span class="px-3 py-1 bg-indigo-600/10 text-indigo-600 dark:text-indigo-300 rounded-full text-sm">GPA: 3.8</span>
+                <span class="px-3 py-1 bg-indigo-600/10 text-indigo-600 dark:text-indigo-300 rounded-full text-sm">Dean's List</span>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="skill-card p-6 rounded-lg glassmorphism">
-          <h3 class="text-xl font-semibold mb-2">GCE Advanced Level (2021)</h3>
-          <p class="text-gray-600">Niwaththaka Chethiya national College, Anuradhapura<br>Subjects: Agri Science, ICT , Sinhala</p>
+        <div class="skill-card p-6 rounded-lg glassmorphism hover:border-indigo-400 transition">
+          <div class="flex items-start">
+            <div class="bg-indigo-100 dark:bg-indigo-900/50 p-3 rounded-full mr-4">
+              <i class="fas fa-school text-indigo-600 dark:text-indigo-300 text-xl"></i>
+            </div>
+            <div>
+              <h3 class="text-xl font-semibold mb-2">GCE Advanced Level (2021)</h3>
+              <p class="text-gray-600 dark:text-gray-300">Niwaththaka Chethiya national College, Anuradhapura<br>Subjects: Agri Science, ICT , Sinhala</p>
+              <div class="mt-3 flex flex-wrap gap-2">
+                <span class="px-3 py-1 bg-indigo-600/10 text-indigo-600 dark:text-indigo-300 rounded-full text-sm">3 A Passes</span>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
 
     <!-- Technical Skills Section -->
-    <section class="skills mb-16 fade-in">
+    <section class="skills mb-16 fade-in" id="skills">
       <h2 class="text-4xl font-bold mb-6 text-center bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-pink-600">Technical Skills</h2>
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <div class="skill-card p-6 rounded-lg glassmorphism">
-          <h3 class="text-lg font-semibold mb-2">HTML & CSS</h3>
-          <div class="bg-gray-200 rounded-full h-2.5">
-            <div class="progress-bar w-[90%]"></div>
+        <div class="skill-card p-6 rounded-lg glassmorphism hover:border-indigo-400 transition">
+          <div class="flex items-center mb-2">
+            <i class="fab fa-html5 text-orange-500 text-xl mr-3"></i>
+            <h3 class="text-lg font-semibold">HTML & CSS</h3>
           </div>
+          <div class="bg-gray-200 dark:bg-gray-700 rounded-full h-2.5">
+            <div class="progress-bar w-[90%]" data-width="90"></div>
+          </div>
+          <p class="mt-2 text-sm text-gray-600 dark:text-gray-300">Advanced knowledge of semantic HTML and modern CSS including Flexbox, Grid, and animations.</p>
         </div>
-        <div class="skill-card p-6 rounded-lg glassmorphism">
-          <h3 class="text-lg font-semibold mb-2">JavaScript & React</h3>
-          <div class="bg-gray-200 rounded-full h-2.5">
-            <div class="progress-bar w-[85%]"></div>
+        <div class="skill-card p-6 rounded-lg glassmorphism hover:border-indigo-400 transition">
+          <div class="flex items-center mb-2">
+            <i class="fab fa-js-square text-yellow-400 text-xl mr-3"></i>
+            <h3 class="text-lg font-semibold">JavaScript & React</h3>
           </div>
+          <div class="bg-gray-200 dark:bg-gray-700 rounded-full h-2.5">
+            <div class="progress-bar w-[85%]" data-width="85"></div>
+          </div>
+          <p class="mt-2 text-sm text-gray-600 dark:text-gray-300">Experience with ES6+, React Hooks, Context API, and state management.</p>
         </div>
-        <div class="skill-card p-6 rounded-lg glassmorphism">
-          <h3 class="text-lg font-semibold mb-2">Spring Boot</h3>
-          <div class="bg-gray-200 rounded-full h-2.5">
-            <div class="progress-bar w-[80%]"></div>
+        <div class="skill-card p-6 rounded-lg glassmorphism hover:border-indigo-400 transition">
+          <div class="flex items-center mb-2">
+            <i class="fas fa-leaf text-green-500 text-xl mr-3"></i>
+            <h3 class="text-lg font-semibold">Spring Boot</h3>
           </div>
+          <div class="bg-gray-200 dark:bg-gray-700 rounded-full h-2.5">
+            <div class="progress-bar w-[80%]" data-width="80"></div>
+          </div>
+          <p class="mt-2 text-sm text-gray-600 dark:text-gray-300">Building RESTful APIs with Spring Security, JPA, and MySQL integration.</p>
         </div>
-        <div class="skill-card p-6 rounded-lg glassmorphism">
-          <h3 class="text-lg font-semibold mb-2">MySQL & MongoDB</h3>
-          <div class="bg-gray-200 rounded-full h-2.5">
-            <div class="progress-bar w-[75%]"></div>
+        <div class="skill-card p-6 rounded-lg glassmorphism hover:border-indigo-400 transition">
+          <div class="flex items-center mb-2">
+            <i class="fas fa-database text-blue-500 text-xl mr-3"></i>
+            <h3 class="text-lg font-semibold">MySQL & MongoDB</h3>
           </div>
+          <div class="bg-gray-200 dark:bg-gray-700 rounded-full h-2.5">
+            <div class="progress-bar w-[75%]" data-width="75"></div>
+          </div>
+          <p class="mt-2 text-sm text-gray-600 dark:text-gray-300">Database design, optimization, and complex query writing for both SQL and NoSQL.</p>
         </div>
-        <div class="skill-card p-6 rounded-lg glassmorphism">
-          <h3 class="text-lg font-semibold mb-2">Bootstrap</h3>
-          <div class="bg-gray-200 rounded-full h-2.5">
-            <div class="progress-bar w-[70%]"></div>
+        <div class="skill-card p-6 rounded-lg glassmorphism hover:border-indigo-400 transition">
+          <div class="flex items-center mb-2">
+            <i class="fab fa-bootstrap text-purple-500 text-xl mr-3"></i>
+            <h3 class="text-lg font-semibold">Bootstrap & Tailwind</h3>
           </div>
+          <div class="bg-gray-200 dark:bg-gray-700 rounded-full h-2.5">
+            <div class="progress-bar w-[70%]" data-width="70"></div>
+          </div>
+          <p class="mt-2 text-sm text-gray-600 dark:text-gray-300">Proficient in responsive design with both Bootstrap and Tailwind CSS frameworks.</p>
+        </div>
+        <div class="skill-card p-6 rounded-lg glassmorphism hover:border-indigo-400 transition">
+          <div class="flex items-center mb-2">
+            <i class="fab fa-node-js text-green-600 text-xl mr-3"></i>
+            <h3 class="text-lg font-semibold">Node.js & Express</h3>
+          </div>
+          <div class="bg-gray-200 dark:bg-gray-700 rounded-full h-2.5">
+            <div class="progress-bar w-[70%]" data-width="70"></div>
+          </div>
+          <p class="mt-2 text-sm text-gray-600 dark:text-gray-300">Building server-side applications with authentication and API integrations.</p>
+        </div>
+      </div>
+      
+      <!-- Skills Cloud -->
+      <div class="mt-12 glassmorphism p-6 rounded-lg">
+        <h3 class="text-xl font-semibold mb-4 text-center">Skills Cloud</h3>
+        <div class="flex flex-wrap justify-center gap-3">
+          <span class="px-4 py-2 bg-indigo-600/10 text-indigo-600 dark:text-indigo-300 rounded-full">React</span>
+          <span class="px-4 py-2 bg-indigo-600/10 text-indigo-600 dark:text-indigo-300 rounded-full">JavaScript</span>
+          <span class="px-4 py-2 bg-indigo-600/10 text-indigo-600 dark:text-indigo-300 rounded-full">HTML5</span>
+          <span class="px-4 py-2 bg-indigo-600/10 text-indigo-600 dark:text-indigo-300 rounded-full">CSS3</span>
+          <span class="px-4 py-2 bg-indigo-600/10 text-indigo-600 dark:text-indigo-300 rounded-full">Spring Boot</span>
+          <span class="px-4 py-2 bg-indigo-600/10 text-indigo-600 dark:text-indigo-300 rounded-full">Java</span>
+          <span class="px-4 py-2 bg-indigo-600/10 text-indigo-600 dark:text-indigo-300 rounded-full">MySQL</span>
+          <span class="px-4 py-2 bg-indigo-600/10 text-indigo-600 dark:text-indigo-300 rounded-full">MongoDB</span>
+          <span class="px-4 py-2 bg-indigo-600/10 text-indigo-600 dark:text-indigo-300 rounded-full">Node.js</span>
+          <span class="px-4 py-2 bg-indigo-600/10 text-indigo-600 dark:text-indigo-300 rounded-full">Express</span>
+          <span class="px-4 py-2 bg-indigo-600/10 text-indigo-600 dark:text-indigo-300 rounded-full">Git</span>
+          <span class="px-4 py-2 bg-indigo-600/10 text-indigo-600 dark:text-indigo-300 rounded-full">REST APIs</span>
         </div>
       </div>
     </section>
 
     <!-- Projects Section -->
-    <section class="projects mb-16 fade-in">
+    <section class="projects mb-16 fade-in" id="projects">
       <h2 class="text-4xl font-bold mb-6 text-center bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-pink-600">Projects</h2>
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <div class="project-card p-6 rounded-lg glassmorphism">
-          <h3 class="text-xl font-bold mb-2">Vehicle Service</h3>
-          <p class="text-gray-600 mb-4">A MERN stack platform for scheduling and tracking vehicle maintenance with user authentication.</p>
-          <div class="flex gap-2">
-            <span class="px-4 py-1 bg-indigo-600 text-white rounded-full text-sm">MERN Stack</span>
-            <a href="https://github.com/NimeshaShehan" target="_blank" rel="noopener noreferrer" class="px-4 py-1 bg-gray-600 text-white rounded-full text-sm hover:bg-gray-500"><i class="fab fa-github"></i> GitHub</a>
+        <div class="project-card p-6 rounded-lg glassmorphism hover:border-indigo-400 transition">
+          <div class="flex justify-between items-start mb-3">
+            <div class="bg-indigo-600 text-white p-2 rounded-lg">
+              <i class="fas fa-car text-xl"></i>
+            </div>
+            <div class="flex space-x-2">
+              <a href="https://github.com/NimeshaShehan" target="_blank" rel="noopener" class="text-gray-600 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-300" title="GitHub Repository">
+                <i class="fab fa-github"></i>
+              </a>
+              <a href="#" class="text-gray-600 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-300" title="Project Link">
+                <i class="fas fa-external-link-alt"></i>
+              </a>
+            </div>
+          </div>
+          <h3 class="text-xl font-bold mb-2">Vehicle Service Management</h3>
+          <p class="text-gray-600 dark:text-gray-300 mb-4">A MERN stack platform for scheduling and tracking vehicle maintenance with user authentication and real-time updates.</p>
+          <div class="flex flex-wrap gap-2">
+            <span class="px-3 py-1 bg-indigo-600/10 text-indigo-600 dark:text-indigo-300 rounded-full text-sm">React</span>
+            <span class="px-3 py-1 bg-indigo-600/10 text-indigo-600 dark:text-indigo-300 rounded-full text-sm">Node.js</span>
+            <span class="px-3 py-1 bg-indigo-600/10 text-indigo-600 dark:text-indigo-300 rounded-full text-sm">MongoDB</span>
           </div>
         </div>
-        <div class="project-card p-6 rounded-lg glassmorphism">
-          <h3 class="text-xl font-bold mb-2">Car Sale</h3>
-          <p class="text-gray-600 mb-4">A React-based car sales website with browsing, filtering, and user authentication features.</p>
-          <div class="flex gap-2">
-            <span class="px-4 py-1 bg-indigo-600 text-white rounded-full text-sm">React</span>
-            <a href="https://github.com/NimeshaShehan" target="_blank" rel="noopener noreferrer" class="px-4 py-1 bg-gray-600 text-white rounded-full text-sm hover:bg-gray-500"><i class="fab fa-github"></i> GitHub</a>
+        
+        <div class="project-card p-6 rounded-lg glassmorphism hover:border-indigo-400 transition">
+          <div class="flex justify-between items-start mb-3">
+            <div class="bg-indigo-600 text-white p-2 rounded-lg">
+              <i class="fas fa-car text-xl"></i>
+            </div>
+            <div class="flex space-x-2">
+              <a href="https://github.com/NimeshaShehan" target="_blank" rel="noopener" class="text-gray-600 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-300" title="GitHub Repository">
+                <i class="fab fa-github"></i>
+              </a>
+              <a href="#" class="text-gray-600 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-300" title="Project Link">
+                <i class="fas fa-external-link-alt"></i>
+              </a>
+            </div>
+          </div>
+          <h3 class="text-xl font-bold mb-2">Car Sale Platform</h3>
+          <p class="text-gray-600 dark:text-gray-300 mb-4">A React-based car sales website with browsing, filtering, and user authentication features including admin dashboard.</p>
+          <div class="flex flex-wrap gap-2">
+            <span class="px-3 py-1 bg-indigo-600/10 text-indigo-600 dark:text-indigo-300 rounded-full text-sm">React</span>
+            <span class="px-3 py-1 bg-indigo-600/10 text-indigo-600 dark:text-indigo-300 rounded-full text-sm">Firebase</span>
+            <span class="px-3 py-1 bg-indigo-600/10 text-indigo-600 dark:text-indigo-300 rounded-full text-sm">Tailwind CSS</span>
           </div>
         </div>
-        <div class="project-card p-6 rounded-lg glassmorphism">
-          <h3 class="text-xl font-bold mb-2">Waste Management</h3>
-          <p class="text-gray-600 mb-4">A React platform for managing waste collection and recycling with real-time monitoring.</p>
-          <div class="flex gap-2">
-            <span class="px-4 py-1 bg-indigo-600 text-white rounded-full text-sm">React</span>
-            <a href="https://github.com/NimeshaShehan" target="_blank" rel="noopener noreferrer" class="px-4 py-1 bg-gray-600 text-white rounded-full text-sm hover:bg-gray-500"><i class="fab fa-github"></i> GitHub</a>
+        
+        <div class="project-card p-6 rounded-lg glassmorphism hover:border-indigo-400 transition">
+          <div class="flex justify-between items-start mb-3">
+            <div class="bg-indigo-600 text-white p-2 rounded-lg">
+              <i class="fas fa-trash-alt text-xl"></i>
+            </div>
+            <div class="flex space-x-2">
+              <a href="https://github.com/NimeshaShehan" target="_blank" rel="noopener" class="text-gray-600 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-300" title="GitHub Repository">
+                <i class="fab fa-github"></i>
+              </a>
+              <a href="#" class="text-gray-600 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-300" title="Project Link">
+                <i class="fas fa-external-link-alt"></i>
+              </a>
+            </div>
+          </div>
+          <h3 class="text-xl font-bold mb-2">Waste Management System</h3>
+          <p class="text-gray-600 dark:text-gray-300 mb-4">A React platform for managing waste collection and recycling with real-time monitoring and route optimization.</p>
+          <div class="flex flex-wrap gap-2">
+            <span class="px-3 py-1 bg-indigo-600/10 text-indigo-600 dark:text-indigo-300 rounded-full text-sm">React</span>
+            <span class="px-3 py-1 bg-indigo-600/10 text-indigo-600 dark:text-indigo-300 rounded-full text-sm">Spring Boot</span>
+            <span class="px-3 py-1 bg-indigo-600/10 text-indigo-600 dark:text-indigo-300 rounded-full text-sm">MySQL</span>
           </div>
         </div>
-        <div class="project-card p-6 rounded-lg glassmorphism">
-          <h3 class="text-xl font-bold mb-2">Portfolio</h3>
-          <p class="text-gray-600 mb-4">A responsive portfolio built with HTML5, CSS3, and JavaScript showcasing frontend skills.</p>
-          <div class="flex gap-2">
-            <span class="px-4 py-1 bg-indigo-600 text-white rounded-full text-sm">HTML, CSS, JS</span>
-            <a href="https://github.com/NimeshaShehan" target="_blank" rel="noopener noreferrer" class="px-4 py-1 bg-gray-600 text-white rounded-full text-sm hover:bg-gray-500"><i class="fab fa-github"></i> GitHub</a>
+        
+        <div class="project-card p-6 rounded-lg glassmorphism hover:border-indigo-400 transition">
+          <div class="flex justify-between items-start mb-3">
+            <div class="bg-indigo-600 text-white p-2 rounded-lg">
+              <i class="fas fa-briefcase text-xl"></i>
+            </div>
+            <div class="flex space-x-2">
+              <a href="https://github.com/NimeshaShehan" target="_blank" rel="noopener" class="text-gray-600 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-300" title="GitHub Repository">
+                <i class="fab fa-github"></i>
+              </a>
+              <a href="#" class="text-gray-600 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-300" title="Project Link">
+                <i class="fas fa-external-link-alt"></i>
+              </a>
+            </div>
+          </div>
+          <h3 class="text-xl font-bold mb-2">Portfolio Website</h3>
+          <p class="text-gray-600 dark:text-gray-300 mb-4">A responsive portfolio built with HTML5, CSS3, and JavaScript showcasing frontend skills with animations.</p>
+          <div class="flex flex-wrap gap-2">
+            <span class="px-3 py-1 bg-indigo-600/10 text-indigo-600 dark:text-indigo-300 rounded-full text-sm">HTML5</span>
+            <span class="px-3 py-1 bg-indigo-600/10 text-indigo-600 dark:text-indigo-300 rounded-full text-sm">CSS3</span>
+            <span class="px-3 py-1 bg-indigo-600/10 text-indigo-600 dark:text-indigo-300 rounded-full text-sm">JavaScript</span>
           </div>
         </div>
-        <div class="project-card p-6 rounded-lg glassmorphism">
+        
+        <div class="project-card p-6 rounded-lg glassmorphism hover:border-indigo-400 transition">
+          <div class="flex justify-between items-start mb-3">
+            <div class="bg-indigo-600 text-white p-2 rounded-lg">
+              <i class="fas fa-tasks text-xl"></i>
+            </div>
+            <div class="flex space-x-2">
+              <a href="https://github.com/NimeshaShehan" target="_blank" rel="noopener" class="text-gray-600 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-300" title="GitHub Repository">
+                <i class="fab fa-github"></i>
+              </a>
+              <a href="#" class="text-gray-600 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-300" title="Project Link">
+                <i class="fas fa-external-link-alt"></i>
+              </a>
+            </div>
+          </div>
           <h3 class="text-xl font-bold mb-2">To-Do App</h3>
-          <p class="text-gray-600 mb-4">A user-friendly mobile app built with Android Studio for task management.</p>
-          <div class="flex gap-2">
-            <span class="px-4 py-1 bg-indigo-600 text-white rounded-full text-sm">Android Studio</span>
-            <a href="https://github.com/NimeshaShehan" target="_blank" rel="noopener noreferrer" class="px-4 py-1 bg-gray-600 text-white rounded-full text-sm hover:bg-gray-500"><i class="fab fa-github"></i> GitHub</a>
+          <p class="text-gray-600 dark:text-gray-300 mb-4">A user-friendly mobile app built with Android Studio for task management with cloud sync and reminders.</p>
+          <div class="flex flex-wrap gap-2">
+            <span class="px-3 py-1 bg-indigo-600/10 text-indigo-600 dark:text-indigo-300 rounded-full text-sm">Android</span>
+            <span class="px-3 py-1 bg-indigo-600/10 text-indigo-600 dark:text-indigo-300 rounded-full text-sm">Java</span>
+            <span class="px-3 py-1 bg-indigo-600/10 text-indigo-600 dark:text-indigo-300 rounded-full text-sm">Firebase</span>
+          </div>
+        </div>
+        
+        <div class="project-card p-6 rounded-lg glassmorphism hover:border-indigo-400 transition">
+          <div class="flex justify-between items-start mb-3">
+            <div class="bg-indigo-600 text-white p-2 rounded-lg">
+              <i class="fas fa-blog text-xl"></i>
+            </div>
+            <div class="flex space-x-2">
+              <a href="https://github.com/NimeshaShehan" target="_blank" rel="noopener" class="text-gray-600 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-300" title="GitHub Repository">
+                <i class="fab fa-github"></i>
+              </a>
+              <a href="#" class="text-gray-600 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-300" title="Project Link">
+                <i class="fas fa-external-link-alt"></i>
+              </a>
+            </div>
+          </div>
+          <h3 class="text-xl font-bold mb-2">Tech Blog</h3>
+          <p class="text-gray-600 dark:text-gray-300 mb-4">A full-stack blogging platform with user authentication, comments, and rich text editing capabilities.</p>
+          <div class="flex flex-wrap gap-2">
+            <span class="px-3 py-1 bg-indigo-600/10 text-indigo-600 dark:text-indigo-300 rounded-full text-sm">MERN Stack</span>
+            <span class="px-3 py-1 bg-indigo-600/10 text-indigo-600 dark:text-indigo-300 rounded-full text-sm">Redux</span>
+            <span class="px-3 py-1 bg-indigo-600/10 text-indigo-600 dark:text-indigo-300 rounded-full text-sm">Markdown</span>
           </div>
         </div>
       </div>
     </section>
 
     <!-- Extracurricular Activities Section -->
-    <section class="extracurricular mb-16 fade-in">
+    <section class="extracurricular mb-16 fade-in" id="activities">
       <h2 class="text-4xl font-bold mb-6 text-center bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-pink-600">Extracurricular Activities</h2>
-      <div class="glassmorphism p-6 rounded-lg text-center max-w-3xl mx-auto">
-        <p class="text-lg leading-relaxed">Active member of the Leo Club of SLIIT, contributing to community service and leadership initiatives.</p>
+      <div class="glassmorphism p-6 rounded-lg max-w-3xl mx-auto">
+        <div class="flex flex-col md:flex-row gap-6">
+          <div class="flex-1">
+            <div class="flex items-start mb-4">
+              <div class="bg-indigo-100 dark:bg-indigo-900/50 p-3 rounded-full mr-4">
+                <i class="fas fa-hands-helping text-indigo-600 dark:text-indigo-300"></i>
+              </div>
+              <div>
+                <h3 class="text-xl font-semibold">Leo Club of SLIIT</h3>
+                <p class="text-gray-600 dark:text-gray-300">Active member contributing to community service and leadership initiatives since 2022.</p>
+              </div>
+            </div>
+          </div>
+          <div class="flex-1">
+            <div class="flex items-start mb-4">
+              <div class="bg-indigo-100 dark:bg-indigo-900/50 p-3 rounded-full mr-4">
+                <i class="fas fa-code text-indigo-600 dark:text-indigo-300"></i>
+              </div>
+              <div>
+                <h3 class="text-xl font-semibold">Hackathons</h3>
+                <p class="text-gray-600 dark:text-gray-300">Participated in multiple coding competitions and hackathons, winning awards for innovative solutions.</p>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
     <!-- Contact Section -->
-    <section class="contact mb-16 fade-in">
-      <h2 class="text-4xl font-bold mb-6 text-center bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-pink-600">Contact</h2>
-      <form id="contact-form" class="max-w-lg mx-auto glassmorphism p-6 rounded-lg">
-        <div class="mb-4">
-          <label for="name" class="block text-lg font-medium mb-2">Name</label>
-          <input type="text" id="name" name="name" class="w-full px-4 py-2 border rounded-lg bg-gray-100 border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-600" required />
+    <section class="contact mb-16 fade-in" id="contact">
+      <h2 class="text-4xl font-bold mb-6 text-center bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-pink-600">Get In Touch</h2>
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <div class="glassmorphism p-6 rounded-lg">
+          <h3 class="text-2xl font-semibold mb-4">Contact Information</h3>
+          <div class="space-y-4">
+            <div class="flex items-start">
+              <div class="bg-indigo-100 dark:bg-indigo-900/50 p-3 rounded-full mr-4">
+                <i class="fas fa-envelope text-indigo-600 dark:text-indigo-300"></i>
+              </div>
+              <div>
+                <h4 class="font-medium">Email</h4>
+                <a href="mailto:nimeshashehan412@gmail.com" class="text-gray-600 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-300">nimeshashehan412@gmail.com</a>
+              </div>
+            </div>
+            <div class="flex items-start">
+              <div class="bg-indigo-100 dark:bg-indigo-900/50 p-3 rounded-full mr-4">
+                <i class="fas fa-phone-alt text-indigo-600 dark:text-indigo-300"></i>
+              </div>
+              <div>
+                <h4 class="font-medium">Phone</h4>
+                <a href="tel:+94705105245" class="text-gray-600 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-300">+94 70 510 5245</a>
+              </div>
+            </div>
+            <div class="flex items-start">
+              <div class="bg-indigo-100 dark:bg-indigo-900/50 p-3 rounded-full mr-4">
+                <i class="fas fa-map-marker-alt text-indigo-600 dark:text-indigo-300"></i>
+              </div>
+              <div>
+                <h4 class="font-medium">Location</h4>
+                <p class="text-gray-600 dark:text-gray-300">Anuradhapura, Sri Lanka</p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="mt-8">
+            <h3 class="text-xl font-semibold mb-4">Connect With Me</h3>
+            <div class="flex space-x-4">
+              <a href="https://github.com/NimeshaShehan" target="_blank" rel="noopener" class="w-12 h-12 rounded-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center hover:bg-indigo-600 hover:text-white transition" title="GitHub Profile">
+                <i class="fab fa-github text-xl"></i>
+              </a>
+              <a href="https://www.linkedin.com/in/nimesha-shehan-187a31333/" target="_blank" rel="noopener" class="w-12 h-12 rounded-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center hover:bg-indigo-600 hover:text-white transition" title="LinkedIn Profile">
+                <i class="fab fa-linkedin-in text-xl"></i>
+              </a>
+              <a href="https://twitter.com/nimesha" target="_blank" rel="noopener" class="w-12 h-12 rounded-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center hover:bg-indigo-600 hover:text-white transition" title="Twitter Profile">
+                <i class="fab fa-twitter text-xl"></i>
+              </a>
+              <a href="https://www.facebook.com/nimesha.shehan.7" target="_blank" rel="noopener" class="w-12 h-12 rounded-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center hover:bg-indigo-600 hover:text-white transition" title="Facebook Profile">
+                <i class="fab fa-facebook-f text-xl"></i>
+              </a>
+            </div>
+          </div>
         </div>
-        <div class="mb-4">
-          <label for="email" class="block text-lg font-medium mb-2">Email</label>
-          <input type="email" id="email" name="email" class="w-full px-4 py-2 border rounded-lg bg-gray-100 border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-600" required />
+        
+        <div class="glassmorphism p-6 rounded-lg">
+          <form id="contact-form" class="space-y-4">
+            <div>
+              <label for="name" class="block text-lg font-medium mb-2">Name</label>
+              <input type="text" id="name" name="name" class="w-full px-4 py-2 border rounded-lg bg-gray-100 dark:bg-gray-800 border-gray-300 dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-indigo-600" placeholder="Enter your name" required />
+            </div>
+            <div>
+              <label for="email" class="block text-lg font-medium mb-2">Email</label>
+              <input type="email" id="email" name="email" class="w-full px-4 py-2 border rounded-lg bg-gray-100 dark:bg-gray-800 border-gray-300 dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-indigo-600" placeholder="Enter your email" required />
+            </div>
+            <div>
+              <label for="subject" class="block text-lg font-medium mb-2">Subject</label>
+              <input type="text" id="subject" name="subject" class="w-full px-4 py-2 border rounded-lg bg-gray-100 dark:bg-gray-800 border-gray-300 dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-indigo-600" placeholder="Enter the subject" required />
+            </div>
+            <div>
+              <label for="message" class="block text-lg font-medium mb-2">Message</label>
+              <textarea id="message" name="message" rows="5" class="w-full px-4 py-2 border rounded-lg bg-gray-100 dark:bg-gray-800 border-gray-300 dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-indigo-600" placeholder="Enter your message" required></textarea>
+            </div>
+            <button type="submit" class="w-full px-4 py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition flex items-center justify-center">
+              <i class="fas fa-paper-plane mr-2"></i> Send Message
+            </button>
+          </form>
         </div>
-        <div class="mb-4">
-          <label for="message" class="block text-lg font-medium mb-2">Message</label>
-          <textarea id="message" name="message" rows="5" class="w-full px-4 py-2 border rounded-lg bg-gray-100 border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-600" required></textarea>
-        </div>
-        <button type="submit" class="w-full px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition">Send Message</button>
-      </form>
-      <p class="mt-4 text-center text-gray-600">
-        Reach me at: <a href="mailto:nimeshashehan412@gmail.com" class="text-indigo-600 hover:underline">nimeshashehan412@gmail.com</a> | <a href="tel:+94705105245" class="text-indigo-600 hover:underline">+94 70 510 5245</a>
-      </p>
+      </div>
     </section>
   </main>
 
   <!-- Footer -->
-  <footer class="bg-gradient-to-r from-indigo-600 to-pink-600 text-white py-6 text-center">
-    <p>© 2025 Nimesha Shehan. All rights reserved.</p>
-    <div class="mt-2">
-      <a href="https://github.com/NimeshaShehan" target="_blank" rel="noopener noreferrer" class="text-white hover:text-gray-200 mx-2" title="GitHub Profile"><i class="fab fa-github"></i><span class="sr-only">GitHub</span></a>
-      <a href="https://www.linkedin.com/in/nimesha-shehan-187a31333/" target="_blank" rel="noopener noreferrer" class="text-white hover:text-gray-200 mx-2" title="LinkedIn Profile"><i class="fab fa-linkedin"></i><span class="sr-only">LinkedIn</span></a>
-      <a href="https://twitter.com/nimesha" target="_blank" rel="noopener noreferrer" class="text-white hover:text-gray-200 mx-2" title="Twitter Profile"><i class="fab fa-twitter"></i><span class="sr-only">Twitter</span></a>
+  <footer class="bg-gradient-to-r from-indigo-600 to-pink-600 text-white py-8 text-center relative">
+    <div class="absolute inset-0 bg-black opacity-10"></div>
+    <div class="relative z-10">
+      <div class="max-w-6xl mx-auto px-4">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div class="text-left">
+            <h3 class="text-xl font-bold mb-4">Nimesha Shehan</h3>
+            <p class="text-white/80">Full-Stack Developer and IT Undergraduate passionate about creating innovative web solutions.</p>
+          </div>
+          <div class="text-left">
+            <h3 class="text-xl font-bold mb-4">Quick Links</h3>
+            <ul class="space-y-2">
+              <li><a href="#about" class="text-white/80 hover:text-white transition">About</a></li>
+              <li><a href="#skills" class="text-white/80 hover:text-white transition">Skills</a></li>
+              <li><a href="#projects" class="text-white/80 hover:text-white transition">Projects</a></li>
+              <li><a href="#contact" class="text-white/80 hover:text-white transition">Contact</a></li>
+            </ul>
+          </div>
+          <div class="text-left">
+            <h3 class="text-xl font-bold mb-4">Contact Info</h3>
+            <ul class="space-y-2">
+              <li class="flex items-center">
+                <i class="fas fa-envelope mr-2"></i>
+                <a href="mailto:nimeshashehan412@gmail.com" class="text-white/80 hover:text-white transition">nimeshashehan412@gmail.com</a>
+              </li>
+              <li class="flex items-center">
+                <i class="fas fa-phone-alt mr-2"></i>
+                <a href="tel:+94705105245" class="text-white/80 hover:text-white transition">+94 70 510 5245</a>
+              </li>
+              <li class="flex items-center">
+                <i class="fas fa-map-marker-alt mr-2"></i>
+                <span class="text-white/80">Anuradhapura, Sri Lanka</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="border-t border-white/20 mt-8 pt-6">
+          <p>© 2025 Nimesha Shehan. All rights reserved.</p>
+          <div class="mt-4 flex justify-center space-x-4">
+            <a href="https://github.com/NimeshaShehan" target="_blank" rel="noopener" class="text-white hover:text-gray-200" title="GitHub Profile">
+              <i class="fab fa-github text-xl"></i>
+            </a>
+            <a href="https://www.linkedin.com/in/nimesha-shehan-187a31333/" target="_blank" rel="noopener" class="text-white hover:text-gray-200" title="LinkedIn Profile">
+              <i class="fab fa-linkedin-in text-xl"></i>
+            </a>
+            <a href="https://twitter.com/nimesha" target="_blank" rel="noopener" class="text-white hover:text-gray-200" title="Twitter Profile">
+              <i class="fab fa-twitter text-xl"></i>
+            </a>
+            <a href="https://www.facebook.com/nimesha.shehan.7" target="_blank" rel="noopener" class="text-white hover:text-gray-200" title="Facebook Profile">
+              <i class="fab fa-facebook-f text-xl"></i>
+            </a>
+          </div>
+        </div>
+      </div>
     </div>
   </footer>
 
+  <!-- JavaScript Libraries -->
+  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+  
   <!-- JavaScript -->
   <script>
+    // Dark mode toggle
+    const toggle = document.getElementById('toggle');
+    const body = document.body;
+    
+    // Check for saved user preference or use system preference
+    if (localStorage.getItem('darkMode') === 'true' || 
+        (!localStorage.getItem('darkMode') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+      body.classList.add('dark');
+      toggle.checked = true;
+    }
+    
+    toggle.addEventListener('change', function() {
+      if (this.checked) {
+        body.classList.add('dark');
+        localStorage.setItem('darkMode', 'true');
+      } else {
+        body.classList.remove('dark');
+        localStorage.setItem('darkMode', 'false');
+      }
+    });
+    
+    // Initialize particles.js
+    particlesJS('particles-js', {
+      "particles": {
+        "number": {
+          "value": 80,
+          "density": {
+            "enable": true,
+            "value_area": 800
+          }
+        },
+        "color": {
+          "value": "#4f46e5"
+        },
+        "shape": {
+          "type": "circle",
+          "stroke": {
+            "width": 0,
+            "color": "#000000"
+          },
+          "polygon": {
+            "nb_sides": 5
+          }
+        },
+        "opacity": {
+          "value": 0.5,
+          "random": false,
+          "anim": {
+            "enable": false,
+            "speed": 1,
+            "opacity_min": 0.1,
+            "sync": false
+          }
+        },
+        "size": {
+          "value": 3,
+          "random": true,
+          "anim": {
+            "enable": false,
+            "speed": 40,
+            "size_min": 0.1,
+            "sync": false
+          }
+        },
+        "line_linked": {
+          "enable": true,
+          "distance": 150,
+          "color": "#4f46e5",
+          "opacity": 0.4,
+          "width": 1
+        },
+        "move": {
+          "enable": true,
+          "speed": 2,
+          "direction": "none",
+          "random": false,
+          "straight": false,
+          "out_mode": "out",
+          "bounce": false,
+          "attract": {
+            "enable": false,
+            "rotateX": 600,
+            "rotateY": 1200
+          }
+        }
+      },
+      "interactivity": {
+        "detect_on": "canvas",
+        "events": {
+          "onhover": {
+            "enable": true,
+            "mode": "grab"
+          },
+          "onclick": {
+            "enable": true,
+            "mode": "push"
+          },
+          "resize": true
+        },
+        "modes": {
+          "grab": {
+            "distance": 140,
+            "line_linked": {
+              "opacity": 1
+            }
+          },
+          "bubble": {
+            "distance": 400,
+            "size": 40,
+            "duration": 2,
+            "opacity": 8,
+            "speed": 3
+          },
+          "repulse": {
+            "distance": 200,
+            "duration": 0.4
+          },
+          "push": {
+            "particles_nb": 4
+          },
+          "remove": {
+            "particles_nb": 2
+          }
+        }
+      },
+      "retina_detect": true
+    });
+    
     // Fade-in animations on scroll
     const fadeElements = document.querySelectorAll('.fade-in');
     const observer = new IntersectionObserver(
@@ -226,18 +770,82 @@
       { threshold: 0.1 }
     );
     fadeElements.forEach((el) => observer.observe(el));
-
+    
+    // Smooth scrolling for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        
+        const targetId = this.getAttribute('href');
+        if (targetId === '#') return;
+        
+        const targetElement = document.querySelector(targetId);
+        if (targetElement) {
+          window.scrollTo({
+            top: targetElement.offsetTop - 80,
+            behavior: 'smooth'
+          });
+        }
+      });
+    });
+    
+    // Back to top button
+    const backToTopButton = document.getElementById('back-to-top');
+    window.addEventListener('scroll', () => {
+      if (window.pageYOffset > 300) {
+        backToTopButton.classList.remove('opacity-0', 'invisible');
+        backToTopButton.classList.add('opacity-100', 'visible');
+      } else {
+        backToTopButton.classList.remove('opacity-100', 'visible');
+        backToTopButton.classList.add('opacity-0', 'invisible');
+      }
+    });
+    
+    backToTopButton.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+    
+    // Animate progress bars when they come into view
+    const progressBars = document.querySelectorAll('.progress-bar');
+    const progressObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const width = entry.target.getAttribute('data-width');
+            entry.target.style.width = width + '%';
+          }
+        });
+      },
+      { threshold: 0.5 }
+    );
+    progressBars.forEach((bar) => progressObserver.observe(bar));
+    
     // Contact form submission
     const contactForm = document.getElementById('contact-form');
     contactForm.addEventListener('submit', (e) => {
       e.preventDefault();
       const name = document.getElementById('name').value;
       const email = document.getElementById('email').value;
+      const subject = document.getElementById('subject').value;
       const message = document.getElementById('message').value;
-
-      if (name && email && message) {
-        alert('Message sent successfully! (This is a demo.)');
-        contactForm.reset();
+      
+      if (name && email && subject && message) {
+        // In a real application, you would send this data to a server
+        // For demo purposes, we'll just show a success message
+        const submitButton = contactForm.querySelector('button[type="submit"]');
+        submitButton.innerHTML = '<i class="fas fa-check mr-2"></i> Message Sent!';
+        submitButton.classList.remove('bg-indigo-600', 'hover:bg-indigo-700');
+        submitButton.classList.add('bg-green-500', 'hover:bg-green-600');
+        
+        setTimeout(() => {
+          submitButton.innerHTML = '<i class="fas fa-paper-plane mr-2"></i> Send Message';
+          submitButton.classList.remove('bg-green-500', 'hover:bg-green-600');
+          submitButton.classList.add('bg-indigo-600', 'hover:bg-indigo-700');
+          contactForm.reset();
+        }, 3000);
       } else {
         alert('Please fill out all fields.');
       }
